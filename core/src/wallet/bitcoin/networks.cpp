@@ -373,6 +373,21 @@ namespace ledger {
                             {}
                     );
                     return CLUBCOIN;
+                } else if (networkName == "stakenet") {
+                    static const api::BitcoinLikeNetworkParameters STAKENET(
+                        "xsn",
+                        {0x4C},
+                        {0x10},
+                        {0x04, 0x88, 0xB2, 0x1E},
+                        api::BitcoinLikeFeePolicy::PER_BYTE,
+                        10000, // is DustAmount ok??
+                        "Stakenet Signed Message:\n",
+                        true, // UsesTimestampedTransaction ??
+                        0, // is TimestampDelay ok??
+                        {sigHashType::SIGHASH_ALL}, // what value should be here??
+                        {} // do AdditionalBIPs needed?
+                    );
+                    return STAKENET;
                 }
 
                 throw make_exception(api::ErrorCode::INVALID_ARGUMENT, "No network parameters set for {}", networkName);
@@ -400,7 +415,8 @@ namespace ledger {
                 getNetworkParameters("komodo"),
                 getNetworkParameters("poswallet"),
                 getNetworkParameters("pivx"),
-                getNetworkParameters("clubcoin")
+                getNetworkParameters("clubcoin"),
+                getNetworkParameters("stakenet")
             });
         }
     }
